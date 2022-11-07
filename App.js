@@ -3,8 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { useFonts } from "expo-font";
@@ -26,13 +26,23 @@ const App = () => {
       </View>
 
       <View style={estilos.viewBotoes}>
-        <Button title="Buscar Filmes" />
-        <Button title="Favoritos" />
+        <Pressable style={estilos.botaoInicial}>
+          <Text style={estilos.textoBotao}>Buscar filmes</Text>
+        </Pressable>
+
+        <Pressable style={estilos.botaoInicial}>
+          <Text style={estilos.textoBotao}>Favoritos</Text>
+        </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
-        <Button title="Privacidade" />
-        <Button title="Sobre" />
+        <Pressable style={estilos.botaoRodape}>
+          <Text style={estilos.textoRodape}>Privacidade</Text>
+        </Pressable>
+
+        <Pressable style={estilos.botaoRodape}>
+          <Text style={estilos.textoRodape}>Sobre</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -71,11 +81,28 @@ const estilos = StyleSheet.create({
     alignItems: "flex-start",
     width: "80%",
   },
+  botaoInicial: {
+    borderStyle: "solid",
+    borderWidth: 2,
+    padding: 16,
+    backgroundColor: "#5451a6",
+  },
+  textoBotao: {
+    color: "white",
+  },
   viewRodape: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "80%",
+    width: "100%",
+    backgroundColor: "#5451a6",
+  },
+  botaoRodape: {
+    padding: 16,
+  },
+  textoRodape: {
+    color: "white",
+    fontSize: 16,
   },
 });
