@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { useFonts } from "expo-font";
 import logo from "./assets/images/logo.png";
+import { Ionicons } from "@expo/vector-icons";
 
 const App = () => {
   const [fonteCarregada] = useFonts({
@@ -27,21 +28,29 @@ const App = () => {
 
       <View style={estilos.viewBotoes}>
         <Pressable style={estilos.botaoInicial}>
-          <Text style={estilos.textoBotao}>Buscar filmes</Text>
+          <Text style={estilos.textoBotao}>
+            Buscar filmes <Ionicons name="search" size={16} color="white" />
+          </Text>
         </Pressable>
 
         <Pressable style={estilos.botaoInicial}>
-          <Text style={estilos.textoBotao}>Favoritos</Text>
+          <Text style={estilos.textoBotao}>
+            Favoritos <Ionicons name="star" size={16} color="white" />
+          </Text>
         </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
         <Pressable style={estilos.botaoRodape}>
-          <Text style={estilos.textoRodape}>Privacidade</Text>
+          <Text style={estilos.textoRodape}>
+            Privacidade <Ionicons name="lock-closed" size={16} color="white" />
+          </Text>
         </Pressable>
 
         <Pressable style={estilos.botaoRodape}>
-          <Text style={estilos.textoRodape}>Sobre</Text>
+          <Text style={estilos.textoRodape}>
+            Sobre <Ionicons name="information-circle" size={16} color="white" />
+          </Text>
         </Pressable>
       </View>
     </SafeAreaView>
