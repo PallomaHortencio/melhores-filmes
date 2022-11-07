@@ -1,6 +1,14 @@
-import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+} from "react-native";
 import React from "react";
 import { useFonts } from "expo-font";
+import logo from "./assets/images/logo.png";
 
 const App = () => {
   const [fonteCarregada] = useFonts({
@@ -13,6 +21,7 @@ const App = () => {
   return (
     <SafeAreaView style={estilos.container}>
       <View style={estilos.viewLogo}>
+        <Image style={estilos.logo} source={logo} />
         <Text style={estilos.tituloApp}>Melhores Filmes!</Text>
       </View>
 
@@ -40,13 +49,17 @@ const estilos = StyleSheet.create({
   },
   viewLogo: {
     flex: 3,
-    width: "80%",
+    /* width: "80%", */
     textAlign: "center",
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  logo: {
+    width: 130,
+    height: 130,
+  },
   tituloApp: {
-    fontSize: 36,
+    fontSize: 32,
     color: "#5451a6",
     fontFamily: "monoton",
     /* fontWeight: "bold", */
