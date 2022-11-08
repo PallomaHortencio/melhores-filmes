@@ -27,24 +27,24 @@ const Home = ({ navigation }) => {
       </View>
 
       <View style={estilos.viewBotoes}>
-        <Pressable style={estilos.botaoInicial}>
-          <Text
-            style={estilos.textoBotao}
-            onPress={() => {
-              navigation.navigate("FormBusca");
-            }}
-          >
+        <Pressable
+          style={estilos.botaoInicial}
+          onPress={() => {
+            navigation.navigate("FormBusca");
+          }}
+        >
+          <Text style={estilos.textoBotao}>
             Buscar filmes <Ionicons name="search" size={16} color="white" />
           </Text>
         </Pressable>
 
-        <Pressable style={estilos.botaoInicial}>
-          <Text
-            style={estilos.textoBotao}
-            onPress={() => {
-              navigation.navigate("Favoritos");
-            }}
-          >
+        <Pressable
+          style={estilos.botaoInicial}
+          onPress={() => {
+            navigation.navigate("Favoritos");
+          }}
+        >
+          <Text style={estilos.textoBotao}>
             Favoritos <Ionicons name="star" size={16} color="white" />
           </Text>
         </Pressable>
@@ -62,13 +62,13 @@ const Home = ({ navigation }) => {
           </Text>
         </Pressable>
 
-        <Pressable style={estilos.botaoRodape}>
-          <Text
-            style={estilos.textoRodape}
-            onPress={() => {
-              navigation.navigate("Sobre");
-            }}
-          >
+        <Pressable
+          style={estilos.botaoRodape}
+          onPress={() => {
+            navigation.navigate("Sobre");
+          }}
+        >
+          <Text style={estilos.textoRodape}>
             Sobre <Ionicons name="information-circle" size={16} color="white" />
           </Text>
         </Pressable>
