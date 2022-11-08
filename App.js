@@ -18,7 +18,15 @@ const App = () => {
 
       {/* O NavigationContainer deve envolver todas as telas navegaveis do nosso app */}
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "#5451a6",
+            },
+            headerTintColor: "white",
+          }}
+        >
           <Stack.Screen
             component={Home}
             name="Home"
