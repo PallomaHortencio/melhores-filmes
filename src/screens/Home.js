@@ -12,7 +12,7 @@ import logo from "../../assets/images/logo.png";
 
 const corPrimaria = "#5451a6";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [fonteCarregada] = useFonts({
     monoton: require("../../assets/fonts/Monoton-Regular.ttf"),
   });
@@ -28,27 +28,47 @@ const Home = () => {
 
       <View style={estilos.viewBotoes}>
         <Pressable style={estilos.botaoInicial}>
-          <Text style={estilos.textoBotao}>
+          <Text
+            style={estilos.textoBotao}
+            onPress={() => {
+              navigation.navigate("FormBusca");
+            }}
+          >
             Buscar filmes <Ionicons name="search" size={16} color="white" />
           </Text>
         </Pressable>
 
         <Pressable style={estilos.botaoInicial}>
-          <Text style={estilos.textoBotao}>
+          <Text
+            style={estilos.textoBotao}
+            onPress={() => {
+              navigation.navigate("Favoritos");
+            }}
+          >
             Favoritos <Ionicons name="star" size={16} color="white" />
           </Text>
         </Pressable>
       </View>
 
       <View style={estilos.viewRodape}>
-        <Pressable style={estilos.botaoRodape}>
+        <Pressable
+          style={estilos.botaoRodape}
+          onPress={() => {
+            navigation.navigate("Privacidade");
+          }}
+        >
           <Text style={estilos.textoRodape}>
             Privacidade <Ionicons name="lock-closed" size={16} color="white" />
           </Text>
         </Pressable>
 
         <Pressable style={estilos.botaoRodape}>
-          <Text style={estilos.textoRodape}>
+          <Text
+            style={estilos.textoRodape}
+            onPress={() => {
+              navigation.navigate("Sobre");
+            }}
+          >
             Sobre <Ionicons name="information-circle" size={16} color="white" />
           </Text>
         </Pressable>
