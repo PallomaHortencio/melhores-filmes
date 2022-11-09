@@ -23,7 +23,7 @@ const FormBusca = () => {
         Localize um filme que você gostaria de ver
       </Text>
       <View style={estilos.filme}>
-        <Ionicons name="film" size={44} color="black" />
+        <Ionicons name="film" size={24} color="black" />
         <TextInput
           style={estilos.caixa}
           onChangeText={onChangeText}
