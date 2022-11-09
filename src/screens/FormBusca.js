@@ -1,42 +1,55 @@
+import { Ionicons } from "@expo/vector-icons";
 import {
+  Alert,
+  Button,
+  SafeAreaView,
   StyleSheet,
   Text,
-  View,
-  SafeAreaView,
   TextInput,
-  Button,
-  Alert,
+  View,
 } from "react-native";
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { useState } from "react";
 
 const FormBusca = () => {
-  const [text, onChangeText] = React.useState("");
+  /* Captura em tempo real do que é digitado no TextInput 
+  através do evento onChangeText */
+  const filmeDigitado = (valorDigitado) => {
+    setFilme(valorDigitado);
+  };
+
+  /* Hook useState para monitorar/armazenar o filme
+  que será buscado a partir do formulário */
+  const [filme, setFilme] = useState("");
+
+  /* Função chamada toda vez que o botão for pressionado
+  (usamos a prop onPress do Button) */
+  const buscarFilmes = () => {
+    /* Se filme (gerenciado pelo useState) estiver vazio/undefined/falsy */
+    if (!filme) {
+      return Alert.alert("Ops!", "Você deve digitar um filme!");
+    }
+
+    Alert.alert("Você procurou por: ", filme);
+  };
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={estilos.container}>
       <Text style={estilos.texto}>
-        Pegue sua pipoca e faça uma seção cinema em casa
-        <MaterialCommunityIcons name="popcorn" size={16} color="black" />
+        Star Trek? O Poderoso Chefão? A trilogia Senhor dos Anéis?
       </Text>
       <Text style={estilos.texto}>
-        Localize um filme que você gostaria de ver
+        Localiza um filme que você viu ou gostaria de ver!
       </Text>
-      <View style={estilos.filme}>
-        <Ionicons name="film" size={24} color="black" />
+      <View style={estilos.viewForm}>
+        <Ionicons name="film" size={44} />
         <TextInput
-          style={estilos.caixa}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="Filmes"
+          placeholder="Digite o filme..."
+          style={estilos.campo}
+          onChangeText={filmeDigitado}
         />
       </View>
-      <Button
-        style={estilos.botao}
-        title="Procurar"
-        color="#5451a6"
-        onPress={() => Alert.alert("oi")}
-      />
+      <Button title="Procurar" color="#5451a6" onPress={buscarFilmes} />
     </SafeAreaView>
   );
 };
@@ -48,21 +61,21 @@ const estilos = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  caixa: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: "90%",
-  },
   texto: {
-    marginVertical: 6,
-    margin: 5,
     paddingVertical: 8,
   },
-  filme: {
+  viewForm: {
     flexDirection: "row",
-    alignItems: "center",
-    margin: 6,
+    justifyContent: "space-between",
+    marginVertical: 16,
+  },
+  campo: {
+    borderWidth: 1,
+    padding: 8,
+    flex: 0.9,
+  },
+  botao: {
+    backgroundColor: "red",
+    borderWidth: 2,
   },
 });
