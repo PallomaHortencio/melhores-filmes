@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
+import logoApi from "../../assets/images/logo-tmdb.png";
 import React from "react";
 
 const Sobre = () => {
@@ -11,6 +12,11 @@ const Sobre = () => {
         existentes na base de dados pública disponibilizada pelo site The Movie
         Database (TMDb).
       </Text>
+
+      <View style={estilos.viewTmdb}>
+        <Image source={logoApi} />
+      </View>
+
       <Text style={estilos.texto}>
         Ao localizar um filme, o usuário pode visualizar informações como
         título, data de lançamento, nota média de avaliação e uma breve
@@ -44,5 +50,13 @@ const estilos = StyleSheet.create({
   nomeApp: {
     color: "#5451a6",
     fontWeight: "bold",
+  },
+  nomeApp: {
+    color: "#5451a6",
+    fontWeight: "bold",
+  },
+  viewTmdb: {
+    marginVertical: 8,
+    alignItems: "center",
   },
 });
