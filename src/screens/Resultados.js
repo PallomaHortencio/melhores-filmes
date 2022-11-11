@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
@@ -49,7 +49,17 @@ const Resultados = ({ route }) => {
         {/* Se loading for FALSE, renderize o resultado do map */}
         {!loading &&
           resultados.map((resultado) => {
-            return <Text key={resultado.id}>{resultado.title}</Text>;
+            return (
+              <View key={resultado.id}>
+                <Image
+                  style={estilos.imagem}
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/original/${resultado.poster_path}`,
+                  }}
+                />
+                <Text>{resultado.title}</Text>
+              </View>
+            );
           })}
       </View>
     </SafeAreaView>
@@ -65,5 +75,9 @@ const estilos = StyleSheet.create({
   },
   viewFilmes: {
     marginVertical: 8,
+  },
+  imagem: {
+    height: 150,
+    width: 150,
   },
 });
