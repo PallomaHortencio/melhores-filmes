@@ -4,6 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
 import apiKey from "../../apiKey";
 import Loading from "../components/Loading";
+import CardFilme from "../components/CardFilme";
+import ItemSeparador from "../components/ItemSeparador";
+import ItemVazio from "../components/ItemVazio";
 
 const Resultados = ({ route }) => {
   const { filme } = route.params;
@@ -47,19 +50,11 @@ const Resultados = ({ route }) => {
       <View style={estilos.viewFilmes}>
         {!loading && (
           <FlatList
+            ItemSeparatorComponent={ItemSeparador}
+            ListEmptyComponent={ItemVazio}
             data={resultados}
             renderItem={({ item }) => {
-              return (
-                <View>
-                  <Image
-                    style={estilos.imagem}
-                    source={{
-                      uri: `https://image.tmdb.org/t/p/original/${item.poster_path}`,
-                    }}
-                  />
-                  <Text>{item.title}</Text>
-                </View>
-              );
+              return <CardFilme filme={item} />;
             }}
             keyExtractor={(item) => item.id}
           />
