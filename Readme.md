@@ -93,3 +93,27 @@ Manipulação de eventos do TextInput (onChangeText) e função para captura da 
 Manipulação de state (useState) para monitoramento do filme que será buscado.
 
 Manipulação de evento onPress do Button/Pressable para validação de entrada.
+
+## branch 06-programação-de-busca-na-api-e-resultados
+
+**FormBusca.js**: adicionamos na função buscarFilmes a chamada `navigation.navigate("Resultados", { filme });` e removemos o `Alert.alert("Você procurou por: ", filme);` usado na branch 05.
+
+_Obs.:_ não se esqueça de adicionar a prop `{navigation}` na const do component `FormBusca`.
+
+**Resultados.js**: criamos este novo componente que funcionará como uma tela de apresentação dos resultados da busca de filmes.
+
+Adicionamos também a prop `{route}` e através dela acessamos o `filme` que foi digitado em `FormBusca`.
+
+**App.js**: adicionamos a nova tela para navegação:
+`<Stack.Screen component={Resultados} name="Resultados" />`
+
+### API
+
+Instalação da lib axios: `npm install axios`
+
+**services/api.js**: programos o `import` do axios e url base da API.
+
+**Resultados.js**:
+
+- programamos o state de resultados e o acesso à API **TMDB** usando recursos do axios.
+- programamos um `map` básico para testar a exibição dos resultados.
