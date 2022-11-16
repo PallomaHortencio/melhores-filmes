@@ -117,3 +117,10 @@ Instalação da lib axios: `npm install axios`
 
 - programamos o state de resultados e o acesso à API **TMDB** usando recursos do axios.
 - programamos um `map` básico para testar a exibição dos resultados.
+
+## branch 07-melhorias-na-busca-e-resultados
+
+- Remoção de comentários
+- Programação do componente `Loading` usando recursos nativos do `ActivityIndicator`
+- Uso de renderização condicional com operador `&&`
+- Em `Resultados`, programação para carregamento da imagem do filme
