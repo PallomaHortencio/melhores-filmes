@@ -25,9 +25,20 @@ const CardFilme = ({ filme }) => {
     console.log(filmesFavoritos);
 
     /*  2- Havendo storage prévio, ransformamos os dados do filme em objeto e os guardamos numa lista (array) */
-    /*   3- Se a lista não for indefinida, vamos inicia-la vazia */
+    let listaDeFilmes = JSON.parse(filmesFavoritos); // let é undefined
+
+    /*   3- Se a lista não for indefinida, vamos inicia-la com um array vazio */
+    if (!listaDeFilmes) {
+      listaDeFilmes = [];
+    }
+
     /*  4- Adicionamos os dados do filme na lista (array) */
-    /*  5- Finalmente, salvamos no storage do disositivo  */
+    listaDeFilmes.push(filme);
+
+    /*  5- Finalmente, salvamos como string no storage do disositivo  */
+    await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeFilmes));
+
+    Alert.alert("Favoritos", "Filme salvo com sucesso!");
   };
 
   return (
