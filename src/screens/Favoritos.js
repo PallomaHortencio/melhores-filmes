@@ -108,7 +108,7 @@ const Favoritos = () => {
           {listaFavoritos.map((filmeFavorito, indice) => {
             return (
               <Pressable
-                onPress={() => verDetalhes(filmeFavorito)} // Uma das fromas de fazer
+                onPress={() => verDetalhes(filmeFavorito)} // Uma das formas de fazer
                 key={filmeFavorito.id}
                 style={estilos.itemFilme}
               >
