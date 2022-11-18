@@ -6,21 +6,29 @@ import {
   Button,
   Alert,
   Pressable,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Favoritos = () => {
   const [listaFavoritos, setListaFavoritos] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function carregarFavoritos() {
       try {
+        // Acessar o storage @favoritos e tentar carregar os dados existentes
         const dados = await AsyncStorage.getItem("@favoritos");
+
+        // Havendo dados, transformamos eles em array de objetos
         const filmes = JSON.parse(dados);
+
+        // Se realmente tem dados (ou seja, não é null), atualizamos o componente
         if (dados != null) {
-          setListaFavoritos(filmes);
+          setListaFavoritos(filmes); // state de dados do componente
         }
         console.log(dados);
       } catch (error) {
@@ -30,28 +38,93 @@ const Favoritos = () => {
     carregarFavoritos();
   }, []);
 
+  const verDetalhes = (filmeSelecionado) => {
+    navigation.navigate("Detalhes", { filme: filmeSelecionado });
+  };
+
   const excluirFavoritos = async () => {
-    await AsyncStorage.removeItem("@favoritos");
-    setListaFavoritos([]);
-    Alert.alert("Favoritos", "Favoritos excluídos!");
+    Alert.alert(
+      "Excluir TODOS?",
+      "Tem certeza que deseja excluir TODOS os favoritos?",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {
+            return false;
+          },
+          style: "cancel", // SOMENTE IOS
+        },
+        {
+          text: "Sim, to nem aí",
+          onPress: async () => {
+            /* Usamos o removeItem para apagar somente os dados dos @favoritos do no nosso app */
+            await AsyncStorage.removeItem("@favoritos");
+            /* Atualizar o render do componente (removendo da tela os favoritos) */
+            setListaFavoritos([]);
+          },
+          style: "destructive", // SOMENTE IOS
+        },
+      ]
+    );
+  };
+
+  const excluirUmFavorito = async (indice) => {
+    // Alert.alert(`Excluir filme no indice: ${indice}`);
+
+    /* Etapas para exclusão do filme escolhido */
+
+    /* 1- Conhecendo o indice, remover o elemento (filme do array listaFavoritos) */
+    /* splice: indicamos o indice de referência (na prática, o índice do filme que queremos remover e, a partir deste indice, a quantidade de elementos que queremos remover. Como aqui queremos apagar somente o próprio filme escolhido, passamos 1) */
+    listaFavoritos.splice(indice, 1);
+
+    /* 2- Atualizar o storage com a lista atualizada (ou seja, sem o filme) */
+    /* OBS: é necessario transformar em string antes de gravar no Storage */
+    await AsyncStorage.setItem("@favoritos", JSON.stringify(listaFavoritos));
+
+    /* 3- Recarregar do storage a nova lista de favoritos */
+    /* OBS: é necessario transformar em array/objetos antes de manipular na aplicação */
+    const listaDeFilmes = JSON.parse(await AsyncStorage.getItem("@favoritos"));
+
+    /* 4- Atualizar o state para um novo render na tela com a lista de favoritos */
+    setListaFavoritos(listaDeFilmes);
   };
 
   return (
     <SafeAreaView style={estilos.safeContainer}>
       <View style={estilos.container}>
-        <Text>Quantidade: {listaFavoritos.length}</Text>
-        <Button title="Excluir favoritos" onPress={excluirFavoritos} />
+        <View style={estilos.cabecalho}>
+          <Text>Quantidade: {listaFavoritos.length}</Text>
+          <Pressable
+            style={estilos.botaoExcluirTudo}
+            onPress={excluirFavoritos}
+          >
+            <Text style={estilos.textoExcluirTudo}>
+              <Ionicons name="trash-outline" size={16} /> Excluir Favoritos
+            </Text>
+          </Pressable>
+        </View>
 
-        {listaFavoritos.map((filmeFavorito) => {
-          return (
-            <Pressable key={filmeFavorito.id} style={estilos.itemFilme}>
-              <Text style={estilos.titulo}>{filmeFavorito.title}</Text>
-              <Pressable style={estilos.botaoExluir}>
-                <Ionicons name="trash" size={18} color="white" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {listaFavoritos.map((filmeFavorito, indice) => {
+            return (
+              <Pressable
+                onPress={() => verDetalhes(filmeFavorito)} // Uma das fromas de fazer
+                key={filmeFavorito.id}
+                style={estilos.itemFilme}
+              >
+                <Text style={estilos.titulo}>{filmeFavorito.title}</Text>
+                <Pressable
+                  style={estilos.botaoExcluir}
+                  // onPress={excluirUmFavorito}
+                  /*  onPress={() => excluirUmFavorito.bind(indice)} */
+                  onPress={excluirUmFavorito.bind(this, indice)} // Outra forma de fazer
+                >
+                  <Ionicons name="trash" size={18} color="white" />
+                </Pressable>
               </Pressable>
-            </Pressable>
-          );
-        })}
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -60,12 +133,11 @@ const Favoritos = () => {
 export default Favoritos;
 
 const estilos = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-  },
+  safeContainer: { flex: 1 },
   container: {
-    padding: 8,
     flex: 1,
+    padding: 8,
+    backgroundColor: "white",
   },
   itemFilme: {
     padding: 8,
@@ -76,12 +148,26 @@ const estilos = StyleSheet.create({
     borderRadius: 4,
     alignItems: "center",
   },
-  botaoExluir: {
-    backgroundColor: "red",
-    padding: 12,
+  botaoExcluir: {
+    backgroundColor: "#C0392B",
+    padding: 8,
     borderRadius: 4,
   },
+  cabecalho: {
+    marginVertical: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  botaoExcluirTudo: {
+    borderWidth: 1,
+    borderColor: "#C0392B",
+    padding: 8,
+    borderRadius: 4,
+  },
+  textoExcluirTudo: { color: "red" },
   titulo: {
-    fontSize: 12,
+    flex: 1,
+    fontSize: 14,
   },
 });
