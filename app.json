@@ -1,18 +1,19 @@
 {
   "expo": {
-    "name": "melhores-filmes",
+    "name": "Melhores Filmes",
     "slug": "melhores-filmes",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/dahora.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/dahora.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffe1ab"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/1a3d003b-5ac7-4a7b-8b09-f88c060c45d6"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -22,12 +23,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-dahora.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.palloma2001.melhoresfilmes"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1a3d003b-5ac7-4a7b-8b09-f88c060c45d6"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "owner": "palloma2001",
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
